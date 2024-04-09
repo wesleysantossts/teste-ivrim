@@ -1,0 +1,29 @@
+# Arquivos gerados pelo TypeScript
+*.js
+*.js.map
+
+# Arquivos gerados pelo Node.js
+node_modules
+
+# Arquivos de compilação do TypeScript
+*.tsbuildinfo
+
+# Arquivos de configuração do VSCode
+.vscode/
+
+# Arquivos de dependências de desenvolvimento do npm
+# Se você estiver usando Yarn, troque por `yarn.lock`
+package-lock.json
+
+# Arquivos de ambiente
+.env
+
+# Arquivos de log
+*.log
+
+# Arquivos de build
+/build/
+
+# Outros arquivos temporários ou de sistema
+.DS_Store
+Thumbs.db
