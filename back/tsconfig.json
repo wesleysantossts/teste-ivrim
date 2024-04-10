@@ -16,7 +16,7 @@
       "es2015.promise",
       "es5"
     ],                   
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "@infrastructure/*": ["./src/infrastructure/*"],
       "@controllers/*": ["./src/controllers/*"]

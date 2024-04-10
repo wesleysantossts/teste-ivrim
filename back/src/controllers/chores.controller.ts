@@ -1,13 +1,7 @@
 import BaseController from "./base.controller";
 
-class ChoresController extends BaseController {
-  constructor() {
-    super();
-  }
-
-  async routes() {
-    this.router.get("/", (req, res) => res.send("Funcionando"));
-  }
+class ChoresController {
+  async index() {}
 }
 
 export default ChoresController;
