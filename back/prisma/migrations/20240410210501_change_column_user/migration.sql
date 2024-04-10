@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "tasks" ALTER COLUMN "criadoEm" DROP DEFAULT,
+ALTER COLUMN "criadoEm" SET DATA TYPE TEXT;

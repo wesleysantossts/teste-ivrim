@@ -1,11 +1,13 @@
 import express from "express";
+import TaskController from "./controllers/task.controller";
 const routes = express();
+routes.use(express.json());
 
 routes
-  .get("/chores", (req, res) => res.json({success: "teste"}))
-  .get("/chore/:id", (req, res) => res.send("Funcionando"))
-  .post("/chore", (req, res) => res.send("Funcionando"))
-  .put("/chore/:id", (req, res) => res.send("Funcionando"))
-  .delete("/chore/:id", (req, res) => res.send("Funcionando"));
+  .get("/tasks", TaskController.index)
+  .get("/task/:id", TaskController.show)
+  .post("/task", TaskController.store)
+  .put("/task/:id", TaskController.update)
+  .delete("/task/:id", TaskController.delete);
 
 export default routes;

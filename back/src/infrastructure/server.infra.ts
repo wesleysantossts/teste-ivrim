@@ -1,7 +1,5 @@
 import express, { Router } from "express";
 import cors from "cors";
-import path from "path";
-import fs from "fs";
 import routes from "../routes";
 
 class Server {
@@ -23,7 +21,6 @@ class Server {
     this.server.use(
       this.basePathApi,
       cors(),
-      express.json(),
       express.urlencoded({extended: true})
     );
   }
