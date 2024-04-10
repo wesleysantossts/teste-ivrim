@@ -1,5 +1,5 @@
-import Server from "./infrastructure/server.infra";
-const routes = new Server().server;
+import express from "express";
+const routes = express();
 
 routes
   .get("/chores", (req, res) => res.json({success: "teste"}))
