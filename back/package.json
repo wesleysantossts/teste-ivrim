@@ -10,6 +10,11 @@
     "test": "jest --clearCache && jest --verbose",
     "prepare": "husky"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "jest --clearCache && jest --verbose"
+    }
+  },
   "dependencies": {
     "@prisma/client": "^5.12.1",
     "cors": "^2.8.5",
