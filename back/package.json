@@ -8,12 +8,7 @@
     "start": "node ./dist/app.js",
     "build": "jest --verbose && tsc --build",
     "test": "jest --clearCache && jest --verbose",
-    "prepare": "husky"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "jest --clearCache && jest --verbose"
-    }
+    "prepare": "cd .. && husky back/.husky"
   },
   "dependencies": {
     "@prisma/client": "^5.12.1",

@@ -1,6 +1,6 @@
 import TaskService from "../services/task.service";
 import { TaskPayload, Status } from "../@dtos/task.dto";
-import { CustomError } from "src/utils/error.utils";
+import { CustomError } from "../utils/error.utils";
 
 class TaskUsecase {
   static async index() {
