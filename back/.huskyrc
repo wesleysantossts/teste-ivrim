@@ -1,5 +1,0 @@
-{
-  "hooks": {
-    "pre-commit": "jest --clearCache && jest --verbose"
-  }
-}
