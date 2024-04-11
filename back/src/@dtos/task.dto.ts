@@ -5,7 +5,7 @@ export enum Status {
 }
 
 export type TaskPayload = {
-  titulo: string,
-  descricao: string,
-  status: Status,
+  titulo?: string,
+  descricao?: string,
+  status?: Status,
 }

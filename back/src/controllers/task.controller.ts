@@ -8,7 +8,7 @@ class TaskController {
       const tasks = await TaskUsecase.index();
       res.json({ data: tasks });
     } catch (error: any) {
-      res.status(500).json({ message: error?.message, error });
+      res.status(error?.status || 500).json({ message: error?.message, error });
     }
   }
 
@@ -26,16 +26,16 @@ class TaskController {
       const tasks = await TaskUsecase.store(req.body as TaskPayload);
       res.json({ data: tasks });
     } catch (error: any) {
-      res.status(500).json({ message: error?.message, error });
+      res.status(error?.status || 500).json({ message: error?.message, error });
     }
   }
 
   static async update(req: Request, res: Response): Promise<void> {
     try {
-      const tasks = await TaskUsecase.index();
+      const tasks = await TaskUsecase.update(req.body);
       res.json({ data: tasks });
     } catch (error: any) {
-      res.status(500).json({ message: error?.message, error });
+      res.status(error?.status || 500).json({ message: error?.message, error });
     }
   }
 
