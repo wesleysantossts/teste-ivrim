@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon",
     "start": "node ./dist/app.js",
-    "build": "jest --verbose && tsc --build",
+    "build": "tsc --build",
     "test": "jest --clearCache && jest --verbose",
     "prepare": "cd .. && husky back/.husky"
   },

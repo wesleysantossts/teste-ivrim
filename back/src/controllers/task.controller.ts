@@ -32,7 +32,7 @@ class TaskController {
 
   static async update(req: Request, res: Response): Promise<void> {
     try {
-      const tasks = await TaskUsecase.update(req.body);
+      const tasks = await TaskUsecase.update(req.params.id, req.body);
       res.json({ data: tasks });
     } catch (error: any) {
       res.status(error?.status || 500).json({ message: error?.message, error });

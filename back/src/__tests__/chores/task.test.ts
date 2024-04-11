@@ -104,9 +104,72 @@ describe('Ivrim - Kanban', () => {
       const response = await request.post("/task");
 
       expect.assertions(3);
-      expect(response.statusCode).toEqual(500);
+      expect(response.statusCode).toEqual(400);
       expect(response.body.message).toBeDefined()
       expect(response.body.message).toBe("Os campos \"titulo\", \"descricao\" e \"status\" são obrigatórios");
+    });
+  });
+  
+  describe("UPDATE task - Criar tarefa", () => {
+    let taskTest: TaskTest = {
+      titulo: "Teste de tarefa",
+      descricao: "Usado para fazer a criação da tarefa",
+      status: "a fazer"
+    };
+    let taskUpdateTest: TaskTest = {
+      titulo: "Teste de tarefa",
+      status: "a fazer"
+    };
+
+    beforeEach(async () => {
+      const response = await request.post("/task").send(taskTest);
+      const {data: createdTask} = response.body;
+      taskTest.id = createdTask.id;
+    });
+
+    afterEach(async () => {
+      if (taskTest.id) await request.delete(`/task/${taskTest.id}`);
+    });
+
+    it("Ter uma resposta que não seja undefined ou null", async () => {
+      const response = await request.put(`/task/${taskTest.id}`).send(taskUpdateTest);
+      const {data} = response.body;
+
+      expect.assertions(2);
+      expect(response.statusCode).toEqual(200);
+      expect(data).toBeDefined();
+    });
+
+    it("Retorna um campo \"id\", \"titulo\", \"descricao\", \"status\", \"criadoEm\"", async () => {
+      const response = await request.put(`/task/${taskTest.id}`).send(taskUpdateTest);
+      const {data} = response.body;
+
+      expect.assertions(2);
+      expect(response.statusCode).toEqual(200);
+      expect(data).toEqual({
+        id: expect.any(Number),
+        titulo: expect.any(String),
+        descricao: expect.any(String),
+        status: expect.any(String),
+        criadoEm: expect.any(String),
+      });
+    });
+
+    it("Retornar status \"404\" se não receber um \"id\"", async () => {
+      const responseWithoutId = await request.put(`/task`).send(taskUpdateTest);
+
+      expect.assertions(1);
+      expect(responseWithoutId.statusCode).toEqual(404);
+    });
+
+
+    it("Ter uma mensagem de erro caso o usuário não envie ao menos um dos campos obrigatórios", async () => {
+      const response = await request.put(`/task/${taskTest.id}`);
+
+      expect.assertions(3);
+      expect(response.statusCode).toEqual(400);
+      expect(response.body.message).toBeDefined()
+      expect(response.body.message).toBe("Deve conter o campo \"titulo\", \"descricao\" ou \"status\" para realizar a atualização");
     });
   });
 

@@ -20,7 +20,7 @@ class TaskUsecase {
       !descricao ||
       !status
     ) throw new CustomError("Os campos \"titulo\", \"descricao\" e \"status\" são obrigatórios", 400);
-    if (!Object.values(Status).includes(status as Status)) throw new CustomError("O status deve ser \"a fazer\", \"em andamento\" e \"concluido\"", 400);
+    if (!Object.values(Status).includes(status as Status)) throw new CustomError("O status deve ser \"a fazer\", \"em progresso\" e \"concluido\"", 400);
 
     const payload = { titulo, descricao, status };
     const createdTask = await TaskService.store(payload);
@@ -28,17 +28,31 @@ class TaskUsecase {
     return createdTask;
   }
 
-  static async update({ titulo, descricao, status }: TaskPayload) {
+  static async update(id: string, { titulo, descricao, status }: TaskPayload) {
     if (
       !titulo &&
       !descricao &&
       !status
     ) throw new CustomError("Deve conter o campo \"titulo\", \"descricao\" ou \"status\" para realizar a atualização", 400);
+    if (!Object.values(Status).includes(status as Status)) throw new CustomError("O status deve ser \"a fazer\", \"em progresso\" e \"concluido\"", 400);
+    if (!id) throw new CustomError("O parâmetro \"id\" é obrigatório", 404);
+
+    const taskExists = await TaskService.show(parseInt(id));
+    if (!taskExists) throw new CustomError("Tarefa não encontrada", 404);
+
+    const payload = { id: parseInt(id), titulo, descricao, status };
+    const updatedTask = await TaskService.update(payload);
+
+    return updatedTask;
   }
 
   static async delete({ id }: { id?: string }): Promise<boolean> {
     if (!id) throw new CustomError("O \"id\" da tarefa é obrigatório", 400);
-    const deletedTask = await TaskService.delete(parseInt(id!));
+
+    const taskExists = await TaskService.show(parseInt(id));
+    if (!taskExists) throw new CustomError("Tarefa não encontrada", 404);
+
+    const deletedTask = await TaskService.delete(parseInt(id));
     return deletedTask;
   }
 }
