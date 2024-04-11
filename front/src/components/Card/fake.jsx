@@ -10,8 +10,6 @@ export default function Fake({ index, listIndex }) {
   const [, dropRef] = useDrop({
     accept: 'CARD',
     hover(item, monitor) {
-      console.log(item, monitor, listIndex);
-
       const draggedListIndex = item.listIndex;
       const targetListIndex = listIndex;
 
