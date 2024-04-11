@@ -15,11 +15,12 @@ const data = loadLists();
 
 export default function Board() {
   const [lists, setLists] = useState(data);
+  const [updateList, setUpdateList] = useState(false);
   
-  const status = [
-    {title: 'a fazer', creatable: true, cards: []},
-    {title: 'em progresso', creatable: false, cards: []},
-    {title: 'concluido', creatable: false, cards: []},
+  const columns = [
+    {title: 'a fazer', position: 0, creatable: true, cards: []},
+    {title: 'em progresso', position: 1, creatable: false, cards: []},
+    {title: 'concluido', position: 2, creatable: false, cards: []},
   ];
 
   function move(fromList, toList, from, to) {
@@ -28,6 +29,8 @@ export default function Board() {
       if(dragged.id){
         draft[fromList].cards.splice(from, 1);
         draft[toList].cards.splice(to, 0, dragged);
+        
+        updateTaskStatus(dragged.id, toList);
       }
     }))
   }
@@ -36,10 +39,9 @@ export default function Board() {
     try {
       const {data: tasks} = await api.get("tasks");
 
-      const taskNormalized = status.map((item, index) => {
+      const taskNormalized = columns.map((item, index) => {
         let cards = [];
         for(const task of tasks.data) {
-          console.log("🚀 ~ taskNormalized ~ task:", task)
           const taskNormalized = {
             id: task.id,
             title: task.titulo,
@@ -58,8 +60,25 @@ export default function Board() {
         }
       })
       
-      console.log("🚀 ~ getTasks ~ taskNormalized:", taskNormalized)
       setLists(taskNormalized);
+      setUpdateList(true);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function updateTaskStatus(id, status) {
+    try {
+      if (!id && !status) throw Error('Os campos \"id\" e \"status\" são obrigatórios');
+
+      const payload = { 
+        status: columns.filter((item, index) => item.position === status)[0].title 
+      };
+      const updatedResponse = await api.put(`/task/${id}`, payload);
+      const {data: { data }} = updatedResponse;
+      if (!data) throw Error("Nenhuma tarefa foi atualizada");
+
+      getTasks();
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +86,7 @@ export default function Board() {
 
   useEffect(() => {
     getTasks();
-  }, []);
+  }, [updateList]);
 
   return (
     <BoardContext.Provider value={{ lists, move }}>
