@@ -1,5 +1,5 @@
 # Arquivos gerados pelo TypeScript
-*.js
+# *.js
 *.js.map
 
 # Arquivos gerados pelo Node.js
