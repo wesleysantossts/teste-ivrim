@@ -17,9 +17,16 @@ export const Container = styled.div`
     left: 15px;
   }
 
+  
   p {
     font-weight: 500;
     line-height: 20px;
+    
+  }
+  
+  strong {
+    line-height: 25px;
+    font-size: 16px;
   }
 
   img {

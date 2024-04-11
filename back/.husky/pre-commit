@@ -1,1 +1,1 @@
-cd back && npm run test
+cd back && npm run test && npm run build
