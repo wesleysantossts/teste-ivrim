@@ -1,1 +1,6 @@
-cd back && npm run test && npm run build
+cd back && \
+npm run test && \
+npm run build && \
+cd .. && \
+cd front && \
+npm run build
