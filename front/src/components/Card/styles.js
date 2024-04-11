@@ -13,11 +13,11 @@ export const Container = styled.div`
 
   header {
     position: absolute;
+    width: 100%;
     top: -22px;
     left: 15px;
   }
 
-  
   p {
     font-weight: 500;
     line-height: 20px;
@@ -36,6 +36,33 @@ export const Container = styled.div`
     margin-top: 5px;
   }
 
+  .close-btn {
+    position: absolute;
+    right: 20px;
+    top: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding-right: 5px;
+    box-shadow: 10px 100 10 black;
+    
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      background-color: #f30;
+      opacity: 0.7;
+      border: none;
+      border-radius: 50%;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+
   ${props => props.isDragging && css`
     border: 2px dashed #999;
     padding-top: 31px;
@@ -47,6 +74,7 @@ export const Container = styled.div`
     p, img, header {
       opacity: 0;
     }
+
   `}
 `;
 

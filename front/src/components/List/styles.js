@@ -22,7 +22,7 @@ export const Container = styled.div`
       padding: 0 10px;
     }
 
-    button {
+    .creatable {
       width: 42px;
       height: 42px;
       border-radius: 18px;

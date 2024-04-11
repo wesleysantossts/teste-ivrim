@@ -13,7 +13,7 @@ export default function List({ data, index: listIndex }) {
       <header>
         <h2>{data.title}</h2>
         {data.creatable && (
-          <button type="button">
+          <button className='creatable' type="button">
             <MdAdd size={24} color="#FFF" />
           </button>
         )}
