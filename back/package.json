@@ -5,8 +5,8 @@
   "main": "./src/app.ts",
   "scripts": {
     "dev": "nodemon",
-    "start": "node ./dist/src/app.js",
-    "build": "tsc",
+    "start": "node ./dist/app.js",
+    "build": "jest --verbose && tsc --build",
     "test": "jest --clearCache && jest --verbose"
   },
   "dependencies": {
@@ -16,7 +16,6 @@
     "moment": "^2.30.1",
     "supertest": "^6.3.4",
     "ts-node": "^10.9.2",
-    "tsc": "^2.0.4",
     "typescript": "^5.4.4"
   },
   "keywords": [],

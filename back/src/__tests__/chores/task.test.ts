@@ -4,7 +4,6 @@ import supertest from "supertest";
 const request = supertest(routes);
 
 describe('Ivrim - Kanban', () => {
-
   describe("Infraestrutura", () => {
     it('Inicializar o servidor', async () => {
       const response = await request.get("/tasks");
@@ -22,6 +21,46 @@ describe('Ivrim - Kanban', () => {
       expect(response.statusCode).toEqual(200);
       expect(data).toBeDefined();
     })
+  });
+
+  describe("GET task - Listar tarefa específica", () => {
+    let taskTest: TaskTest = {
+      titulo: "Teste de tarefa",
+      descricao: "Este é um teste de tarefa",
+      status: "a fazer"
+    };
+
+    afterEach(async () => {
+      if (taskTest.id) await request.delete(`/task/${taskTest.id}`);
+    });
+
+    it('Ter uma resposta que não seja undefined ou null', async () => {
+      const response = await request.post("/task").send(taskTest);
+      const {data} = response.body;
+      if (data.id) taskTest.id = data.id;
+  
+      expect.assertions(2);
+      expect(response.statusCode).toEqual(200);
+      expect(data).toBeDefined();
+    });
+
+    it("Retorna uma tarefa com os campos \"id\", \"titulo\", \"descricao\", \"status\", \"criadoEm\"", async () => {
+      const response = await request.post("/task").send(taskTest);
+      const {data} = response.body;
+      taskTest.id = data.id;
+      const foundTask = await request.get(`/task/${data.id}`);
+      const {data: foundTaskData} = foundTask.body;
+
+      expect.assertions(2);
+      expect(foundTask.statusCode).toEqual(200);
+      expect(foundTaskData).toEqual({
+        id: expect.any(Number),
+        titulo: expect.any(String),
+        descricao: expect.any(String),
+        status: expect.any(String),
+        criadoEm: expect.any(String),
+      });
+    });
   });
   
   describe("POST task - Criar tarefa", () => {
@@ -68,6 +107,44 @@ describe('Ivrim - Kanban', () => {
       expect(response.statusCode).toEqual(500);
       expect(response.body.message).toBeDefined()
       expect(response.body.message).toBe("Os campos \"titulo\", \"descricao\" e \"status\" são obrigatórios");
+    });
+  });
+
+  describe("DELETE task/:id - Deletar uma tarefa", () => {
+    let taskTest: TaskTest = {
+      titulo: "Teste de tarefa",
+      descricao: "Este é um teste de tarefa",
+      status: "a fazer"
+    };
+
+    afterEach(async () => {
+      if (taskTest.id) await request.delete(`/task/${taskTest.id}`);
+    });
+
+    it("Retornar \"true\" quando a tarefa for deletada com sucesso", async () => {
+      const response = await request.post("/task").send(taskTest);
+      const {body: {data}} = response;
+      const deleteResponse = await request.delete(`/task/${data.id}`);
+      const {body: {data: deletedData}} = deleteResponse;
+
+      expect.assertions(2);
+      expect(deleteResponse.statusCode).toEqual(200);
+      expect(deletedData).toBeTruthy();
+    });
+
+    it("Retornar status \"404\" se não receber um \"id\"", async () => {
+      const response = await request.delete("/task");
+
+      expect.assertions(1);
+      expect(response.statusCode).toEqual(404);
+    });
+
+    it("Retornar mensagem de erro quando não tiver nenhuma tarefa com o \"id\" recebido", async () => {
+      const response = await request.delete("/task/123146513");
+
+      expect.assertions(2);
+      expect(response.statusCode).toEqual(404);
+      expect(response.body.message).toBe("Nenhuma tarefa encontrada com esse id");
     });
   });
 });

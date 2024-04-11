@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { ErrorRequestHandler, Request, Response } from "express";
 import TaskUsecase from "../usecases/task.usecase";
 import { TaskPayload } from "../@dtos/task.dto";
 
@@ -14,10 +14,10 @@ class TaskController {
 
   static async show(req: Request, res: Response): Promise<void> {
     try {
-      const tasks = await TaskUsecase.index();
+      const tasks = await TaskUsecase.show(req.params);
       res.json({ data: tasks });
     } catch (error: any) {
-      res.status(500).json({ message: error?.message, error });
+      res.status(error?.status || 500).json({ message: error?.message, error });
     }
   }
 
@@ -41,10 +41,10 @@ class TaskController {
 
   static async delete(req: Request, res: Response): Promise<void> {
     try {
-      const tasks = await TaskUsecase.delete(req.params.id);
+      const tasks = await TaskUsecase.delete(req.params);
       res.json({ data: tasks });
     } catch (error: any) {
-      res.status(500).json({ message: error?.message, error });
+      res.status(error?.status || 500).json({ message: error?.message, error });
     }
   }
 }

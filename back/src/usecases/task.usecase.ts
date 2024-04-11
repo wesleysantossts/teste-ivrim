@@ -7,8 +7,10 @@ class TaskUsecase {
     return tasks;
   }
 
-  static async show(req: Request, res: Response) {
-
+  static async show({id}:{id?: string}) {
+    if(!id) throw new Error("O \"id\" da tarefa é obrigatório");
+    const foundTask = await TaskService.show(parseInt(id!));
+    return foundTask;
   }
 
   static async store({ titulo, descricao, status }: TaskPayload) {
@@ -27,9 +29,9 @@ class TaskUsecase {
 
   static async update(req: Request, res: Response) { }
 
-  static async delete(id: string) {
+  static async delete({id}: {id?: string}): Promise<boolean> {
     if(!id) throw new Error("O \"id\" da tarefa é obrigatório");
-    const deletedTask = await TaskService.delete(parseInt(id));
+    const deletedTask = await TaskService.delete(parseInt(id!));
     return deletedTask;
   }
 }
