@@ -1,1 +1,1 @@
-cd front && vite build
+cd front && npx vite build
