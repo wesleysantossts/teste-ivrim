@@ -8,9 +8,9 @@ export const TaskContext = createContext({});
 
 function TaskProvider({ children }) {
   const columns = [
-    {title: 'a fazer', position: 0, creatable: true, cards: []},
-    {title: 'em progresso', position: 1, creatable: false, cards: []},
-    {title: 'concluido', position: 2, creatable: false, cards: []},
+    { title: 'a fazer', position: 0, creatable: true, cards: [] },
+    { title: 'em progresso', position: 1, creatable: false, cards: [] },
+    { title: 'concluido', position: 2, creatable: false, cards: [] },
   ];
 
   const [taskList, setTaskList] = useState(columns);
@@ -22,11 +22,11 @@ function TaskProvider({ children }) {
   async function getTasks() {
     try {
       setWatcher(false);
-      const {data: tasks} = await api.get("tasks");
+      const { data: tasks } = await api.get("tasks");
 
       const taskNormalized = columns.map((item, index) => {
         let cards = [];
-        for(const task of tasks.data) {
+        for (const task of tasks.data) {
           const taskNormalized = {
             id: task.id,
             title: task.titulo,
@@ -38,14 +38,14 @@ function TaskProvider({ children }) {
 
           if (item.title === task.status) cards.push(taskNormalized);
         }
-        
+
         return {
           ...item,
           title: capitalizeWords(item.title),
           cards
         }
       })
-      
+
       setTaskList(taskNormalized);
       setWatcher(true);
       if (showModal) setShowModal(false);
@@ -76,13 +76,13 @@ function TaskProvider({ children }) {
     }
   }
 
-  async function updateTask({id, payload, event}) {
+  async function updateTask({ id, payload, event }) {
     if (event) event.preventDefault();
-    
+
     try {
       if (
-        !id || 
-        (typeof payload.status === null) || 
+        !id ||
+        (typeof payload.status === null) ||
         (typeof payload.status == undefined)
       ) throw Error('Os campos \"id\" e \"status\" são obrigatórios');
 
@@ -90,19 +90,19 @@ function TaskProvider({ children }) {
         .filter((item, index) => item.title === payload.status || item.position === payload.status);
       let normalizedStatus = 'a fazer';
       if (filterStatus.length > 0) normalizedStatus = filterStatus[0].title;
-      
+
       const normalizedPayload = {
         ...payload,
         id: id ?? payload.id,
         status: normalizedStatus,
       };
       const updatedResponse = await api.put(`/task/${id}`, normalizedPayload);
-      const {data: { data }} = updatedResponse;
+      const { data: { data } } = updatedResponse;
       if (!data) throw Error("Nenhuma tarefa foi atualizada");
 
       setModalData('');
       getTasks();
-      toast.success('Tarefa atualizada com sucesso!');
+      if (modalType === 'edit') toast.success('Tarefa atualizada com sucesso!');
     } catch (error) {
       console.error(error);
     }
@@ -122,22 +122,22 @@ function TaskProvider({ children }) {
   }
 
   return (
-    <TaskContext.Provider 
-      value={{ 
+    <TaskContext.Provider
+      value={{
         watcher,
         modalWatcher: {
-          showModal, 
-          setShowModal, 
-          modalData, 
+          showModal,
+          setShowModal,
+          modalData,
           setModalData,
           modalType,
           setModalType
         },
-        data: {taskList, setTaskList}, 
-        getTasks, 
+        data: { taskList, setTaskList },
+        getTasks,
         createTask,
-        updateTask, 
-        deleteTask 
+        updateTask,
+        deleteTask
       }}
     >
       {children}
