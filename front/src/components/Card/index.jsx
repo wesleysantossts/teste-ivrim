@@ -64,7 +64,7 @@ export default function Card({ data, index, listIndex, setter, showModal }) {
   }
 
   return (
-    <Container ref={ref} isDragging={isDragging}>
+    <Container ref={ref} isdragging={isDragging.toString()}>
       <header>
         {data.labels.map(label => <Label key={label} color={label} />)}
         <div className='close-btn'>
@@ -76,11 +76,17 @@ export default function Card({ data, index, listIndex, setter, showModal }) {
       <p><strong>{data.title}</strong></p>
       <p>{data.content}</p>
       <div className='footer-card'>
-        {/* {data.user && <img src={data.user} alt="" />} */}
+        {data.user && <img src={data.user} alt="" />}
         <div className='edit-btn'>
           <button 
             onClick={() => {
-              setter(data)
+              const normalizedData = {
+                id: data.id,
+                titulo: data.title,
+                descricao: data.content,
+                status: data.status,
+              };
+              setter(normalizedData)
               showModal(true)
             }}
           >

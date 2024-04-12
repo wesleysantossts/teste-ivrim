@@ -9,12 +9,12 @@ import { TaskContext } from '../../context/task';
 ReactModal.setAppElement('#root');
 
 export default function Modal({data}) {
-  const [formValue, setFormValue] = useState({
+  const [formValue, setFormValue] = useState(data ?? {
     titulo: '',
     descricao: '',
     status: 'a fazer'
   });
-  const { modalWatcher, createTask } = useContext(TaskContext);
+  const { modalWatcher, createTask, updateTask } = useContext(TaskContext);
   const { showModal, setShowModal } = modalWatcher;
 
   const status = [
@@ -38,25 +38,47 @@ export default function Modal({data}) {
 
         </div>
         {data ? (
-          <form method='post' onSubmit={() => {}}>
+          <form 
+            method='post' 
+            onSubmit={(e) => {
+              const normalizedData = {
+                id: formValue.id,
+                titulo: formValue.titulo,
+                descricao: formValue.descricao,
+                status: formValue.status,
+              };
+              updateTask({id: data.id, payload: normalizedData, event: e})
+            }}
+          >
             <p className='title'>Editar Tarefa</p>
             <Input 
               type='text' 
               label='Titulo' 
-              setter={setFormValue} 
+              setter={setFormValue}
+              value={data.titulo}
               keyValue='title' 
-            />
+              />
             <Input 
               type='text' 
               label='Descrição' 
+              value={data.descricao}
               setter={setFormValue} 
               keyValue='description' 
             />
-            <Select label='Status' options={status} />
+            <Select 
+              label='Status' 
+              options={status}
+              value={data.status}
+              setter={setFormValue}
+              keyValue='status'
+            />
             <Button text='Editar' />
           </form>
         ):(
-          <form method='post' onSubmit={(e) => createTask({...formValue, event: e})}>
+          <form 
+            method='post' 
+            onSubmit={(e) => createTask({...formValue, event: e})}
+          >
             <p className='title'>Nova Tarefa</p>
             <Input 
               type='text' 

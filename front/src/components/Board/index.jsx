@@ -7,10 +7,12 @@ import List from '../List';
 
 import { Container } from './styles';
 import { TaskContext } from '../../context/task';
+import Modal from '../Modal';
 
 export default function Board() {
-  const { data, updateTaskStatus } = useContext(TaskContext);
-  const {taskList: lists, setTaskList} = data;
+  const { data, modalWatcher, updateTask, getTasks } = useContext(TaskContext);
+  const { taskList: lists, setTaskList } = data;
+  const { modalData } = modalWatcher;
 
   function move(fromList, toList, from, to) {
     setTaskList(produce(lists, draft => {
@@ -19,10 +21,20 @@ export default function Board() {
         draft[fromList].cards.splice(from, 1);
         draft[toList].cards.splice(to, 0, dragged);
         
-        updateTaskStatus(dragged.id, toList);
+        const normalizedPayload = {
+          id: dragged.id,
+          payload: {
+            status: toList
+          }
+        };
+        updateTask(normalizedPayload);
       }
     }))
   }
+
+  useEffect(() => {
+    getTasks()
+  }, []);
 
   return (
     <BoardContext.Provider value={{ lists, move }}>
@@ -31,6 +43,7 @@ export default function Board() {
           return <List key={index} index={index} data={list} />
         })}
       </Container>
+      <Modal data={modalData} />
     </BoardContext.Provider>
   );
 }

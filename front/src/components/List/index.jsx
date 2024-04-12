@@ -10,10 +10,9 @@ import Modal from '../Modal';
 import { TaskContext } from '../../context/task';
 
 export default function List({ data, index: listIndex }) {
-  const [modalData, setModalData] = useState(null);
   const [toggleModal, setToggleModal] = useState(false);
   const { modalWatcher } = useContext(TaskContext);
-  const { showModal, setShowModal } = modalWatcher;
+  const { showModal, setShowModal, modalData, setModalData } = modalWatcher;
 
   return (
     <Container done={data.done}>
@@ -50,7 +49,6 @@ export default function List({ data, index: listIndex }) {
           </Fragment>
         ))}
         <Fake index={data.cards.length} listIndex={listIndex}/>
-        <Modal data={modalData} />
       </ul>
     </Container>
   );

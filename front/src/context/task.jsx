@@ -16,6 +16,7 @@ function TaskProvider({ children }) {
   const [taskList, setTaskList] = useState(columns);
   const [watcher, setWatcher] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState(false);
 
   async function getTasks() {
     try {
@@ -29,8 +30,9 @@ function TaskProvider({ children }) {
             id: task.id,
             title: task.titulo,
             content: task.descricao,
+            status: task.status,
             labels: ['#7159c1'],
-          user: 'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png'
+            user: 'https://rocketseat-cdn.s3-sa-east-1.amazonaws.com/profile.png'
           };
 
           if (item.title === task.status) cards.push(taskNormalized);
@@ -73,14 +75,27 @@ function TaskProvider({ children }) {
     }
   }
 
-  async function updateTaskStatus(id, status) {
+  async function updateTask({id, payload, event}) {
+    if (event) event.preventDefault();
+    
     try {
-      if (!id && !status) throw Error('Os campos \"id\" e \"status\" são obrigatórios');
+      if (
+        !id || 
+        (typeof payload.status === null) || 
+        (typeof payload.status == undefined)
+      ) throw Error('Os campos \"id\" e \"status\" são obrigatórios');
 
-      const payload = { 
-        status: columns.filter((item, index) => item.position === status)[0].title 
+      const filterStatus = columns
+        .filter((item, index) => item.position === payload.status);
+      let normalizedStatus = 'a fazer';
+      if (filterStatus.length > 0) normalizedStatus = filterStatus[0].title;
+      
+      const normalizedPayload = {
+        ...payload,
+        id: id ?? payload.id,
+        status: normalizedStatus,
       };
-      const updatedResponse = await api.put(`/task/${id}`, payload);
+      const updatedResponse = await api.put(`/task/${id}`, normalizedPayload);
       const {data: { data }} = updatedResponse;
       if (!data) throw Error("Nenhuma tarefa foi atualizada");
 
@@ -103,19 +118,15 @@ function TaskProvider({ children }) {
     }
   }
 
-  useEffect(() => {
-    getTasks()
-  }, []);
-
   return (
     <TaskContext.Provider 
       value={{ 
         watcher,
-        modalWatcher: {showModal, setShowModal},
+        modalWatcher: {showModal, setShowModal, modalData, setModalData},
         data: {taskList, setTaskList}, 
         getTasks, 
         createTask,
-        updateTaskStatus, 
+        updateTask, 
         deleteTask 
       }}
     >
