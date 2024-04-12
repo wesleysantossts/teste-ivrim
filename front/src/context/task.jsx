@@ -49,6 +49,10 @@ function TaskProvider({ children }) {
       setTaskList(taskNormalized);
       setWatcher(true);
       if (showModal) setShowModal(false);
+      if (modalType === 'edit') {
+        setModalData('');
+        setModalType('create');
+      };
     } catch (error) {
       setWatcher(false);
       console.error(error);
