@@ -60,7 +60,7 @@ function TaskProvider({ children }) {
     }
   }
 
-  async function createTask({ titulo, descricao, status = 'a fazer', event }) {
+  async function createTask({ titulo, descricao, status, event }) {
     event.preventDefault();
     try {
       if (

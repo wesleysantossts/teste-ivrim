@@ -23,8 +23,8 @@ export default function Modal({ data, type }) {
     { type: 'text', label: 'Descrição', value: modalData?.descricao ?? '', formState: { modalData, setModalData }, keyValue: 'descricao' },
   ];
   const inputNewTaskList = [
-    { type: 'text', label: 'Titulo', value: null, formState: { modalData, setModalData }, keyValue: 'titulo' },
-    { type: 'text', label: 'Descrição', value: null, formState: { modalData, setModalData }, keyValue: 'descricao' },
+    { type: 'text', label: 'Titulo', value: undefined, formState: { modalData, setModalData }, keyValue: 'titulo' },
+    { type: 'text', label: 'Descrição', value: undefined, formState: { modalData, setModalData }, keyValue: 'descricao' },
   ];
 
   return (
