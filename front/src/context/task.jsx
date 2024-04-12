@@ -15,6 +15,7 @@ function TaskProvider({ children }) {
 
   const [taskList, setTaskList] = useState(columns);
   const [watcher, setWatcher] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   async function getTasks() {
     try {
@@ -44,10 +45,31 @@ function TaskProvider({ children }) {
       
       setTaskList(taskNormalized);
       setWatcher(true);
+      if (showModal) setShowModal(false);
     } catch (error) {
       setWatcher(false);
-      console.log(error);
+      console.error(error);
       toast.error('Não foi possível listar as tarefas. Entre em contato com o administrador.');
+    }
+  }
+
+  async function createTask({ titulo, descricao, status = 'a fazer', event }) {
+    event.preventDefault();
+    try {
+      if (
+        !titulo ||
+        !descricao
+      ) throw Error('Deve conter \"Título\" e \"Descrição\"!');
+
+      const payload = { titulo, descricao, status };
+      const createdTask = await api.post('/task', payload);
+      if (createdTask.status !== 200 || !createdTask.data) throw Error('Não foi possível criar essa tarefa!');
+
+      getTasks();
+      toast.success('Tarefa criada com sucesso!');
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message ?? 'Não foi possível criar essa tarefa!');
     }
   }
 
@@ -64,33 +86,35 @@ function TaskProvider({ children }) {
 
       getTasks();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
   async function deleteTask(id) {
     try {
       const deleteResponse = await api.delete(`/task/${id}`);
-      if (deleteResponse.statusCode !== 200 && !deleteResponse.data) toast.error('Não foi possível deletar essa tarefa!');
+      if (deleteResponse.status !== 200 || !deleteResponse.data) throw Error('Não foi possível deletar essa tarefa!');
 
       toast.success('Tarefa excluída com sucesso!');
       getTasks()
     } catch (error) {
-      console.log(error);
-      toast.error('Não foi possível deletar essa tarefa!');
+      console.error(error);
+      toast.error(error.message ?? 'Não foi possível deletar essa tarefa!');
     }
   }
 
   useEffect(() => {
     getTasks()
-  }, [taskList]);
+  }, []);
 
   return (
     <TaskContext.Provider 
       value={{ 
         watcher,
+        modalWatcher: {showModal, setShowModal},
         data: {taskList, setTaskList}, 
         getTasks, 
+        createTask,
         updateTaskStatus, 
         deleteTask 
       }}

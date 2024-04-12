@@ -17,5 +17,6 @@ export const Container = styled.div`
     text-transform: uppercase;
     font-weight: bold;
     font-size: 16px;
+    cursor: pointer;
   }
 `;

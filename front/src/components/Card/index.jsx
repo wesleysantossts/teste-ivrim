@@ -1,13 +1,13 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, Fragment } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import BoardContext from '../Board/context';
 
 import { Container, Label } from './styles';
-import { MdClear } from 'react-icons/md';
+import { MdClear, MdOutlineMode } from 'react-icons/md';
 import { TaskContext } from '../../context/task';
 
-export default function Card({ data, index, listIndex }) {
+export default function Card({ data, index, listIndex, setter, showModal }) {
   const ref = useRef();
   const { move } = useContext(BoardContext);
   const { deleteTask } = useContext(TaskContext);
@@ -59,7 +59,7 @@ export default function Card({ data, index, listIndex }) {
     try {
       await deleteTask(data.id);
     } catch (error) {
-      console.error(error);      
+      console.error(error);
     }
   }
 
@@ -75,7 +75,19 @@ export default function Card({ data, index, listIndex }) {
       </header>
       <p><strong>{data.title}</strong></p>
       <p>{data.content}</p>
-      {data.user && <img src={data.user} alt="" />}
+      <div className='footer-card'>
+        {/* {data.user && <img src={data.user} alt="" />} */}
+        <div className='edit-btn'>
+          <button 
+            onClick={() => {
+              setter(data)
+              showModal(true)
+            }}
+          >
+            <MdOutlineMode size={18} color={'white'} />
+          </button>
+        </div>
+      </div>
     </Container>
   );
 }

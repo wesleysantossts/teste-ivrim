@@ -56,12 +56,28 @@ export const Container = styled.div`
       background-color: #f30;
       opacity: 0.7;
       border: none;
-      border-radius: 50%;
+      border-radius: 7px;
       color: white;
       cursor: pointer;
     }
+
+  }
+  
+  .footer-card {
+    margin-top: 5px;
+    height: 15px;
   }
 
+  .edit-btn {
+    button {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
 
   ${props => props.isDragging && css`
     border: 2px dashed #999;
