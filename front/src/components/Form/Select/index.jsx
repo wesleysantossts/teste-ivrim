@@ -1,23 +1,23 @@
 import { CustomSelect } from './styles';
 
 export default function Select({
-  label, 
-  options, 
-  value, 
-  setter,
+  label,
+  options,
+  value,
+  formState,
   keyValue,
 }) {
   return (
     <CustomSelect>
-      <label 
+      <label
         htmlFor={String(label).toLowerCase()}
       >
         {label}
       </label>
-      <select 
+      <select
         id={String(label).toLowerCase()}
-        value={value} 
-        onChange={(e) => setter((old) => ({...old, [keyvalue]: e.target.value}))}
+        value={value}
+        onChange={(e) => formState.setFormValue({ ...value, [keyValue]: e.target.value })}
       >
         {options.map((option, index) => {
           return (

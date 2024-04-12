@@ -7,10 +7,18 @@ import { Container, Label } from './styles';
 import { MdClear, MdOutlineMode } from 'react-icons/md';
 import { TaskContext } from '../../context/task';
 
-export default function Card({ data, index, listIndex, setter, showModal }) {
+export default function Card({ data, index, listIndex }) {
   const ref = useRef();
   const { move } = useContext(BoardContext);
-  const { deleteTask } = useContext(TaskContext);
+  const { modalWatcher, deleteTask } = useContext(TaskContext);
+  const { modalData, setModalData, setShowModal } = modalWatcher;
+
+  const normalizedData = {
+    id: data.id,
+    titulo: data.title,
+    descricao: data.content,
+    status: data.status,
+  };
 
   const [{ isDragging }, dragRef] = useDrag({
     item: { type: 'CARD', index, listIndex },
@@ -78,16 +86,12 @@ export default function Card({ data, index, listIndex, setter, showModal }) {
       <div className='footer-card'>
         {data.user && <img src={data.user} alt="" />}
         <div className='edit-btn'>
-          <button 
+          <button
+            type='button'
             onClick={() => {
-              const normalizedData = {
-                id: data.id,
-                titulo: data.title,
-                descricao: data.content,
-                status: data.status,
-              };
-              setter(normalizedData)
-              showModal(true)
+              console.log(">>>>>>>>", normalizedData)
+              setModalData(normalizedData)
+              setShowModal(true)
             }}
           >
             <MdOutlineMode size={18} color={'white'} />

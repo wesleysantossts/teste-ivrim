@@ -10,9 +10,13 @@ import { TaskContext } from '../../context/task';
 import Modal from '../Modal';
 
 export default function Board() {
-  const { data, modalWatcher, updateTask, getTasks } = useContext(TaskContext);
+  const { 
+    data, 
+    modalWatcher: { modalData }, 
+    updateTask, 
+    getTasks 
+  } = useContext(TaskContext);
   const { taskList: lists, setTaskList } = data;
-  const { modalData } = modalWatcher;
 
   function move(fromList, toList, from, to) {
     setTaskList(produce(lists, draft => {

@@ -99,6 +99,7 @@ function TaskProvider({ children }) {
       const {data: { data }} = updatedResponse;
       if (!data) throw Error("Nenhuma tarefa foi atualizada");
 
+      setModalData('');
       getTasks();
     } catch (error) {
       console.error(error);

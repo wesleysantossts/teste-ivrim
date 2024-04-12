@@ -43,8 +43,6 @@ export default function List({ data, index: listIndex }) {
               listIndex={listIndex}
               index={index} 
               data={card}
-              setter={setModalData}
-              showModal={setShowModal}
             />
           </Fragment>
         ))}
