@@ -1,16 +1,15 @@
 services:
-  # backend:
-  #   build: ./back
-  #   restart: always
-  #   depends_on:
-  #     - db
-  #   ports:
-  #     - 8080:8080
-  #   deploy:
-  #     restart_policy:
-  #       condition: on-failure
-  #     placement:
-  #       constraints: [node.role != manager]
+  frontend:
+    build: ./front
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - 3000:3000
+    environment:
+      - VITE_ENV=prod
+    networks:
+      - backend-network
 
   # proxy:
   #   image: nginx:stable
@@ -18,18 +17,10 @@ services:
   #   depends_on:
   #     - backend
   #   ports:
-  #     - 80:80
+  #     - 8181:8181
   #     - 443:443
   #   volumes:
   #     - ./back/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-  #   deploy:
-  #     mode: replicated
-  #     replicas: 2
-  #     labels: [TESTE=IVRIM]
-  #     restart_policy:
-  #       condition: on-failure
-  #     placement:
-  #       constraints: [node.role != manager]
 
   db:
     image: postgres
@@ -38,10 +29,29 @@ services:
       - ./back/.env
     ports:
       - 5432:5432
+    networks:
+      - backend-network
     volumes:
       - ./data:/lib/postgres/data
-    # deploy:
-    #   restart_policy:
-    #     condition: on-failure
-    #   placement:
-    #     constraints: [node.role != manager]
+
+  backend:
+    build: ./back
+    restart: on-failure:10
+    depends_on:
+      - db
+    environment:
+      - ENV=prod
+      - DATABASE_URL=postgresql://ivrim:vdJI9rjRp2X70Tn7udUhn9L7@db:5432/ivrim
+    ports:
+      - 8080:8080
+    networks:
+      - backend-network
+    command: sh -c "if [ ! -f prisma/schema.prisma ]; \
+      then npx prisma migrate deploy --preview-feature && npx prisma generate; \
+      else \
+        npx prisma db push && npx prisma generate; \
+      fi && npm start" 
+
+networks:
+  backend-network:
+    driver: bridge
