@@ -1,13 +1,24 @@
-import React, { useRef, useContext } from 'react';
+import React, { useRef, useContext, Fragment } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 
 import BoardContext from '../Board/context';
 
 import { Container, Label } from './styles';
+import { MdClear, MdOutlineMode } from 'react-icons/md';
+import { TaskContext } from '../../context/task';
 
 export default function Card({ data, index, listIndex }) {
   const ref = useRef();
   const { move } = useContext(BoardContext);
+  const { modalWatcher, deleteTask } = useContext(TaskContext);
+  const { modalData, setModalData, setShowModal, setModalType } = modalWatcher;
+
+  const normalizedData = {
+    id: data.id,
+    titulo: data.title,
+    descricao: data.content,
+    status: data.status,
+  };
 
   const [{ isDragging }, dragRef] = useDrag({
     item: { type: 'CARD', index, listIndex },
@@ -52,13 +63,41 @@ export default function Card({ data, index, listIndex }) {
 
   dragRef(dropRef(ref));
 
+  async function deleteCard() {
+    try {
+      await deleteTask(data.id);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
-    <Container ref={ref} isDragging={isDragging}>
+    <Container ref={ref} isdragging={isDragging.toString()}>
       <header>
         {data.labels.map(label => <Label key={label} color={label} />)}
+        <div className='close-btn'>
+          <button type='button' onClick={deleteCard}>
+            <MdClear size={18} color={'#ccc'} />
+          </button>
+        </div>
       </header>
+      <p><strong>{data.title}</strong></p>
       <p>{data.content}</p>
-      { data.user && <img src={data.user} alt=""/> }
+      <div className='footer-card'>
+        {data.user && <img src={data.user} alt="" />}
+        <div className='edit-btn'>
+          <button
+            type='button'
+            onClick={() => {
+              setModalType('edit');
+              setModalData(normalizedData)
+              setShowModal(true)
+            }}
+          >
+            <MdOutlineMode size={18} color={'white'} />
+          </button>
+        </div>
+      </div>
     </Container>
   );
 }
