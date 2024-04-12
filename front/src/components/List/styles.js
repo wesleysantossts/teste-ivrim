@@ -3,7 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.div`
   padding: 0 15px;
   height: 100%;
+  width: 500px;
   flex: 0 0 320px;
+  overflow: hidden;
   opacity: ${props => props.done ? 0.6 : 1};
 
   & + div {
