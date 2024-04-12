@@ -1,10 +1,13 @@
 import express, { Router } from "express";
 import cors from "cors";
 import routes from "../routes";
+const PORT = process.env.ENV === "local" ?
+  parseInt(process.env.PORT_LOCAL!, 10) :
+  parseInt(process.env.PORT!, 10);
 
 class Server {
   readonly server: express.Express;
-  private readonly port: number = parseInt(process.env.PORT!, 10);
+  private readonly port: number = PORT;
   private readonly basePathApi: string = '/api';
   
   constructor() {

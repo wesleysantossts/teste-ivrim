@@ -38,6 +38,9 @@ services:
     restart: on-failure:10
     depends_on:
       - db
+    environment:
+      - ENVIRONMENT=prod
+      - DATABASE_URL=postgresql://ivrim:vdJI9rjRp2X70Tn7udUhn9L7@db:5432/ivrim
     ports:
       - 8080:8080
     networks:
