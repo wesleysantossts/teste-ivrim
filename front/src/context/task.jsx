@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { capitalizeWords } from '../utils/cards';
-import api from '../config/api';
+import api from '../services/api';
 
 export const TaskContext = createContext({});
 

@@ -66,15 +66,20 @@ export const Container = styled.div`
   }
   
   .footer-card {
-    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    padding: 20px 0 16px 0;
     height: 15px;
   }
 
   .edit-btn {
     button {
       position: absolute;
-      right: 10px;
-      bottom: 10px;
+      right: 15px;
+      bottom: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       background: transparent;
       border: none;
       cursor: pointer;
