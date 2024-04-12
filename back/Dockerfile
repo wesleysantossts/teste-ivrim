@@ -1,11 +1,11 @@
-FROM node:20-alpine3.19
+FROM node:alpine3.19 AS api
 
-WORKDIR /app
-COPY package*.json ./
+WORKDIR /api
+COPY package*.json .
+COPY .env ./
+COPY prisma ./prisma
+
 RUN npm install
 COPY . .
-RUN npm run build
 
 EXPOSE 8080
-
-CMD ["npm", "start"]
