@@ -3,6 +3,7 @@ import ReactModal from 'react-modal';
 import { Container, modalStyle } from './styles';
 import Input from '../Form/Input';
 import Select from '../Form/Select';
+import Button from '../Form/Button';
 
 ReactModal.setAppElement('#root');
 
@@ -37,16 +38,38 @@ export default function Modal({toggle, data}) {
         {!!data ? (
           <form onSubmit={() => {}}>
             <p className='title'>Editar Tarefa</p>
-            <Input type='text' label='Titulo' setter={setFormValue} keyValue='title' />
-            <Input type='text' label='Descrição' setter={setFormValue} keyValue='description' />
+            <Input 
+              type='text' 
+              label='Titulo' 
+              setter={setFormValue} 
+              keyValue='title' 
+            />
+            <Input 
+              type='text' 
+              label='Descrição' 
+              setter={setFormValue} 
+              keyValue='description' 
+            />
             <Select label='Status' options={status} />
+            <Button text='Editar' />
           </form>
         ):(
           <form onSubmit={() => {}}>
             <p className='title'>Nova Tarefa</p>
-            <Input type='text' label='Titulo' setter={setFormValue} keyValue='title' />
-            <Input type='text' label='Descrição' setter={setFormValue} keyValue='description' />
+            <Input 
+              type='text' 
+              label='Titulo' 
+              setter={setFormValue} 
+              keyValue='title' 
+            />
+            <Input 
+              type='text' 
+              label='Descrição' 
+              setter={setFormValue} 
+              keyValue='description' 
+            />
             <Select label='Status' options={status} />
+            <Button text='Criar' />
           </form>
         )}
       </Container>

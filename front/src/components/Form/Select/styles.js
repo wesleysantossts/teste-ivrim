@@ -4,6 +4,7 @@ export const CustomSelect = styled.div`
   min-width: 350px;
   position: relative;
   size: 40px;
+  margin-bottom: 20px;
 
   label {
     font-size: 16px;

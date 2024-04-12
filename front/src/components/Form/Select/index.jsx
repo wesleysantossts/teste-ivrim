@@ -7,7 +7,7 @@ export default function Select({label, options}) {
       <select id={String(label).toLowerCase()}>
         {options.map((option, index) => {
           return (
-            <option key={index} value={option.value}>{option.name}</option>
+            <option key={index} value={option.value} selected={option.default}>{option.name}</option>
           )
         })}
       </select>

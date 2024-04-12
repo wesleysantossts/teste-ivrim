@@ -14,7 +14,7 @@ export const modalStyle = {
     margin: 'auto',
     backgroundColor: 'white',
     width: '500px',
-    height: '400px',
+    height: 'auto',
     border: 'none',
     borderRadius: '15px',
   }

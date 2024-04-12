@@ -24,4 +24,18 @@ export default createGlobalStyle`
   ul {
     list-style: none;
   }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #7159c1; 
+    border-radius: 10px;
+    border: .3px solid grey;
+  }
 `;
