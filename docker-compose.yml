@@ -1,14 +1,15 @@
 services:
-  # ok
-  # frontend:
-  #   build: ./front
-  #   restart: always
-  #   depends_on:
-  #     - backend
-  #   ports:
-  #     - 5173:5173
-  #   networks:
-  #     - backend-network
+  frontend:
+    build: ./front
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - 5173:5173
+    environment:
+      - VITE_ENV=prod
+    networks:
+      - backend-network
 
   # proxy:
   #   image: nginx:stable
@@ -45,7 +46,11 @@ services:
       - 8080:8080
     networks:
       - backend-network
-    command: sh -c "npx prisma migrate deploy --preview-feature && npx prisma generate && npm start"
+    command: sh -c "if [ ! -f prisma/schema.prisma ]; \
+      then npx prisma migrate deploy --preview-feature && npx prisma generate; \
+      else \
+        npx prisma db push && npx prisma generate; \
+      fi && npm start" 
 
 networks:
   backend-network:
