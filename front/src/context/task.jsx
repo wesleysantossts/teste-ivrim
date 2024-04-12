@@ -102,6 +102,7 @@ function TaskProvider({ children }) {
 
       setModalData('');
       getTasks();
+      toast.success('Tarefa atualizada com sucesso!');
     } catch (error) {
       console.error(error);
     }
