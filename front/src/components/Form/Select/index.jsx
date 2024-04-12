@@ -17,7 +17,7 @@ export default function Select({
       <select
         id={String(label).toLowerCase()}
         value={value}
-        onChange={(e) => formState.setFormValue({ ...value, [keyValue]: e.target.value })}
+        onChange={(e) => formState.setModalData({ ...formState.modalData, [keyValue]: e.target.value })}
       >
         {options.map((option, index) => {
           return (

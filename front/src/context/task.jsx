@@ -86,9 +86,10 @@ function TaskProvider({ children }) {
       ) throw Error('Os campos \"id\" e \"status\" são obrigatórios');
 
       const filterStatus = columns
-        .filter((item, index) => item.position === payload.status);
+        .filter((item, index) => item.title === payload.status || item.position === payload.status);
       let normalizedStatus = 'a fazer';
       if (filterStatus.length > 0) normalizedStatus = filterStatus[0].title;
+      console.log("🚀 ~ updateTask ~ filterStatus:", payload, filterStatus)
       
       const normalizedPayload = {
         ...payload,
