@@ -54,7 +54,7 @@ export default function Modal({ data, type }) {
             <Select
               label='Status'
               options={status}
-              value={modalData.status}
+              value={modalData?.status ?? ''}
               formState={{ modalData, setModalData }}
               keyValue='status'
             />
