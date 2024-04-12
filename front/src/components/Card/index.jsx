@@ -11,7 +11,7 @@ export default function Card({ data, index, listIndex }) {
   const ref = useRef();
   const { move } = useContext(BoardContext);
   const { modalWatcher, deleteTask } = useContext(TaskContext);
-  const { modalData, setModalData, setShowModal } = modalWatcher;
+  const { modalData, setModalData, setShowModal, setModalType } = modalWatcher;
 
   const normalizedData = {
     id: data.id,
@@ -89,7 +89,7 @@ export default function Card({ data, index, listIndex }) {
           <button
             type='button'
             onClick={() => {
-              console.log(">>>>>>>>", normalizedData)
+              setModalType('edit');
               setModalData(normalizedData)
               setShowModal(true)
             }}

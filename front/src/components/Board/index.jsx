@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import produce from 'immer';
 
 import BoardContext from './context';
@@ -12,7 +12,7 @@ import Modal from '../Modal';
 export default function Board() {
   const { 
     data, 
-    modalWatcher: { modalData }, 
+    modalWatcher: { modalData, modalType }, 
     updateTask, 
     getTasks 
   } = useContext(TaskContext);
@@ -47,7 +47,7 @@ export default function Board() {
           return <List key={index} index={index} data={list} />
         })}
       </Container>
-      <Modal data={modalData} />
+      <Modal data={modalData} type={modalType} />
     </BoardContext.Provider>
   );
 }

@@ -8,11 +8,9 @@ import { TaskContext } from '../../context/task';
 
 ReactModal.setAppElement('#root');
 
-export default function Modal({ data }) {
+export default function Modal({ data, type }) {
   const { modalWatcher, createTask, updateTask } = useContext(TaskContext);
-  // const [modalData, setModalData] = useState(modalData);
   const { modalData, setModalData, showModal, setShowModal } = modalWatcher;
-  console.log("🚀 ~ Modal ~ modalData:", modalData)
 
   const status = [
     { name: 'A Fazer', value: 'a fazer', default: true },
@@ -21,12 +19,12 @@ export default function Modal({ data }) {
   ];
 
   const inputEditList = [
-    { type: 'text', label: 'Titulo', value: modalData.titulo, formState: { modalData, setModalData }, keyValue: 'titulo' },
-    { type: 'text', label: 'Descrição', value: modalData.descricao, formState: { modalData, setModalData }, keyValue: 'descricao' },
+    { type: 'text', label: 'Titulo', value: modalData?.titulo ?? '', formState: { modalData, setModalData }, keyValue: 'titulo' },
+    { type: 'text', label: 'Descrição', value: modalData?.descricao ?? '', formState: { modalData, setModalData }, keyValue: 'descricao' },
   ];
   const inputNewTaskList = [
-    { type: 'text', label: 'Titulo', value: modalData.titulo, formState: { modalData, setModalData }, keyValue: 'titulo' },
-    { type: 'text', label: 'Descrição', value: modalData.descricao, formState: { modalData, setModalData }, keyValue: 'descricao' },
+    { type: 'text', label: 'Titulo', value: null, formState: { modalData, setModalData }, keyValue: 'titulo' },
+    { type: 'text', label: 'Descrição', value: null, formState: { modalData, setModalData }, keyValue: 'descricao' },
   ];
 
   return (
@@ -43,7 +41,7 @@ export default function Modal({ data }) {
         <div className='close-btn'>
 
         </div>
-        {data ? (
+        {type === 'edit' ? (
           <form
             method='post'
             onSubmit={(e) => {

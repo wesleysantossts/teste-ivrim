@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import { capitalizeWords } from '../utils/cards';
@@ -17,6 +17,7 @@ function TaskProvider({ children }) {
   const [watcher, setWatcher] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [modalData, setModalData] = useState(false);
+  const [modalType, setModalType] = useState('create');
 
   async function getTasks() {
     try {
@@ -89,7 +90,6 @@ function TaskProvider({ children }) {
         .filter((item, index) => item.title === payload.status || item.position === payload.status);
       let normalizedStatus = 'a fazer';
       if (filterStatus.length > 0) normalizedStatus = filterStatus[0].title;
-      console.log("🚀 ~ updateTask ~ filterStatus:", payload, filterStatus)
       
       const normalizedPayload = {
         ...payload,
@@ -124,7 +124,14 @@ function TaskProvider({ children }) {
     <TaskContext.Provider 
       value={{ 
         watcher,
-        modalWatcher: {showModal, setShowModal, modalData, setModalData},
+        modalWatcher: {
+          showModal, 
+          setShowModal, 
+          modalData, 
+          setModalData,
+          modalType,
+          setModalType
+        },
         data: {taskList, setTaskList}, 
         getTasks, 
         createTask,
