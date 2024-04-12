@@ -39,7 +39,7 @@ services:
     depends_on:
       - db
     environment:
-      - ENVIRONMENT=prod
+      - ENV=prod
       - DATABASE_URL=postgresql://ivrim:vdJI9rjRp2X70Tn7udUhn9L7@db:5432/ivrim
     ports:
       - 8080:8080
