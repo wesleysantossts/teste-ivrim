@@ -17,7 +17,7 @@ export default function List({ data, index: listIndex }) {
   return (
     <Container done={data.done}>
       <header>
-        <h2>{data.title}</h2>
+        <h2><strong>{data.title}</strong></h2>
         {data.creatable && (
           <button 
             className='creatable' 
