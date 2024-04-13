@@ -21,8 +21,9 @@ services:
       - frontend
       - db
     ports:
-      - 8181:8181
+      - 80:80
       - 443:443
+      - 8181:8181
     networks:
     - backend-network
     volumes:
