@@ -1,5 +1,9 @@
 # Teste Prático em Node.js com TypeScript
 
+<div style='width: 100%; height: auto; display: flex; align-items: center; justify-content: center'>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim.png' style='width: 80%; height: auto'>
+</div>
+
 ## Como iniciar este projeto
 
 ### Docker
@@ -57,37 +61,56 @@ Se você clonar o repositório na sua máquina e tentar subir no seu sistema de 
 
 ### Teste isolado de API
 
-Caso queira testar a API isoladamente, deixei um modelo de requisições no Postman. <a href='https://www.postman.com/wesleysantossts/workspace/testes-tcnicos/collection/19735236-12169c74-47dd-4aae-9c11-72fedee169fa?action=share&creator=19735236' target='_blank'>Veja aqui</>.
+Caso queira testar a API isoladamente, deixei um modelo de requisições no Postman. <a href='https://www.postman.com/wesleysantossts/workspace/testes-tcnicos/collection/19735236-12169c74-47dd-4aae-9c11-72fedee169fa?action=share&creator=19735236' target='_blank'>Veja aqui</a>.
 
 Certifique-se de ter iniciado o Docker e a API (diretório **back**).
 
-## Descrição do Teste
+## Telas
 
-### Objetivo:
-O objetivo deste teste é avaliar suas habilidades como programador full stack utilizando as tecnologias Node.js, TypeScript e React.js. O teste consiste em utilizar um layout de lista de tarefas (Todo List) no formato Kanban, pré-desenvolvido em React.js, e criar o back-end em Node.js para implementar funcionalidades de adicionar, atualizar e excluir tarefas.
+<div style='width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px'>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim.png' style='width: 80%; height: auto; margin-bottom: 8px'>
+  <small>Início com cards</small>
+</div>
+<div style='width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px'>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim2.png' style='width: 80%; height: auto; margin-bottom: 8px'>
+  <small>Modal de nova tarefa</small>
+</div>
+<div style='width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px'>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim3.png' style='width: 80%; height: auto; margin-bottom: 8px'>
+  <small>Modal para editar uma tarefa</small>
+</div>
+<div style='width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px'>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim4.png' style='width: 80%; height: auto; margin-bottom: 8px'>
+  <small>Notificação</small>
+</div>
 
-### Instruções:
-Neste teste, você receberá um layout de front-end pré-desenvolvido em React.js que representa uma lista de tarefas no formato Kanban, com colunas para tarefas "A Fazer", "Em Progresso" e "Concluído". Sua tarefa é criar o back-end em Node.js, e implementar as funcionalidades de adicionar, editar e excluir tarefas.
+## Requisitos do Teste
 
-### Requisitos:
-- Criar uma API RESTful em Node.js com TypeScript para gerenciar as tarefas;
-- Utilizar um ORM para persistir os dados no banco de dados (MySQL, PostgreSQL ou MongoDB);
-- Implementar as funcionalidades de listar, adicionar, atualizar e excluir tarefas;
-- Defina os seguintes campos para cada tarefa: id, título, descrição, status (A Fazer, Em Progresso ou Concluído) e data de criação;
+Os requisitos do teste estão todos no repositório do <a href='https://github.com/matthewsbrandan/test-to-do-ivrim/tree/main' target='_blank'>matthewsbrandan (clique aqui)</a>.
 
-### Front-End (React.js):
-- Utilize o layout fornecido para criar uma interface de usuário onde as tarefas são exibidas no formato Kanban.
-- Conecte o front-end ao back-end para realizar operações CRUD nas tarefas.
-- Implemente a funcionalidade de editar tarefas, permitindo que o usuário modifique o título, descrição e status da tarefa.
-- Implemente a funcionalidade de excluir tarefas.
+## Tecnologias utilizadas
 
-### Critérios de Avaliação:
-- Integração correta entre front-end e back-end.
-- Funcionalidade completa de adicionar, editar e excluir tarefas.
-- Criação de testes unitários no back-end para as funcionalidades principais, utilizando o framework Jest.
-- Manipulação adequada das requisições e respostas entre as camadas front-end e back-end.
-- Código limpo e organizado.
-- Utilização de boas práticas de programação.
+- [x] Typescript 
+- [x] Javascript 
+- [x] Node.js 
+- [x] Postgres 
+- [x] PrismaORM 
+- [x] Express 
+- [x] Docker 
+- [x] Jest 
+- [x] Git 
+- [x] Husky 
 
-### Prazo:
-Você terá até o dia 12/04/2024 - 23:59 para concluir o teste.
+## Desenvolvimento
+
+<table>
+  <tr>
+    <td style='border=1px solid #ddd; align="center'>
+      <a href="https://github.com/wesleysantossts">
+        <img src="https://avatars.githubusercontent.com/u/56703526?v=4" width="100px" alt="Wesley Santos"/>
+        <br/>
+        <sub>Wesley Santos</sub>
+      </a>
+    </td>
+  </tr>
+</table>
