@@ -1,7 +1,7 @@
 # Teste Prático em Node.js com TypeScript
 
 <div style='width: 100%; height: auto; display: flex; align-items: center; justify-content: center'>
-  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim.png' style='width: 80%; height: auto'>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim.png' style='width: 100%; height: auto'>
 </div>
 
 ## Como iniciar este projeto
@@ -68,21 +68,21 @@ Certifique-se de ter iniciado o Docker e a API (diretório **back**).
 ## Telas
 
 <div style='width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px'>
-  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim.png' style='width: 80%; height: auto; margin-bottom: 8px'>
-  <small>Início com cards</small>
-</div>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim.png' style='width: 100%; height: auto; margin-bottom: 8px'>
+  <small style='text-align: center'>Início com cards</small>
+</div></br>
 <div style='width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px'>
-  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim2.png' style='width: 80%; height: auto; margin-bottom: 8px'>
-  <small>Modal de nova tarefa</small>
-</div>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim2.png' style='width: 100%; height: auto; margin-bottom: 8px'>
+  <small style='text-align: center'>Modal de nova tarefa</small>
+</div></br>
 <div style='width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px'>
-  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim3.png' style='width: 80%; height: auto; margin-bottom: 8px'>
-  <small>Modal para editar uma tarefa</small>
-</div>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim3.png' style='width: 100%; height: auto; margin-bottom: 8px'>
+  <small style='text-align: center'>Modal para editar uma tarefa</small>
+</div></br>
 <div style='width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px'>
-  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim4.png' style='width: 80%; height: auto; margin-bottom: 8px'>
-  <small>Notificação</small>
-</div>
+  <img src='https://interviewtests-wesley.s3.amazonaws.com/ivrim/front-teste-ivrim4.png' style='width: 100%; height: auto; margin-bottom: 8px'>
+  <small style='text-align: center'>Notificação</small>
+</div></br>
 
 ## Requisitos do Teste
 
