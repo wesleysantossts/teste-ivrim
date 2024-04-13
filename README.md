@@ -65,6 +65,114 @@ Caso queira testar a API isoladamente, deixei um modelo de requisições no Post
 
 Certifique-se de ter iniciado o Docker e a API (diretório **back**).
 
+### Rotas
+
+#### GET /tasks
+
+Essa rota retorna a listagem de todas as tarefas.
+
+Retorna:
+<pre>
+{
+  "data": [
+    {
+      "id": 2,
+      "titulo": "asfasf",
+      "descricao": "adfsfa",
+      "status": "em progresso",
+      "criadoEm": "2024-04-12T21:45:53.797Z"
+    },
+    {
+      "id": 3,
+      "titulo": "asfdafs",
+      "descricao": "adfasfdf",
+      "status": "em progresso",
+      "criadoEm": "2024-04-12T21:45:59.959Z"
+    }
+  ]
+}
+</pre>
+
+#### GET /task/:id
+
+Retorna uma tarefa específica pelo id.
+
+Retorna:
+<pre>
+{
+  "data": {
+    "id": 2,
+    "titulo": "asfasf",
+    "descricao": "adfsfa",
+    "status": "em progresso",
+    "criadoEm": "2024-04-12T21:45:53.797Z"
+  }
+}
+</pre>
+
+#### POST /task
+
+Cria um registro de uma nova tarefa. Essa rota espera um titulo, uma descrição e um status ("a fazer", "em progresso" ou "concluido").
+
+Espera:
+<pre>
+{
+  "titulo": "Apagar",
+  "descricao": "Atualizar o banco ao deslizar para outro status",
+  "status": "em progresso"
+}
+</pre>
+
+Retorna:
+<pre>
+{
+  "data": {
+    "id": 1,
+    "titulo": "Apagar",
+    "descricao": "Atualizar o banco ao deslizar para outro status",
+    "status": "em progresso",
+    "criadoEm": "2024-04-12T15:35:06.098Z"
+  }
+}
+</pre>
+
+#### PUT /task/:id
+
+Atualiza uma tarefa. Essa rota espera um titulo, uma descrição e um status ("a fazer", "em progresso" ou "concluido").
+
+Espera:
+<pre>
+{
+  "titulo": "Apagar",
+  "descricao": "Atualizar o banco ao deslizar para outro status",
+  "status": "em progresso"
+}
+</pre>
+
+Retorna:
+<pre>
+{
+  "data": {
+    "id": 14,
+    "titulo": "Teste agora a atualização",
+    "descricao": "Teste de update",
+    "status": "em progresso",
+    "criadoEm": "2024-04-12T23:32:39.313Z"
+  }
+}
+</pre>
+
+#### DELETE /task/:id
+
+Exclui uma tarefa pelo id.
+
+Retorna:
+<pre>
+{
+  "data": true
+}
+</pre>
+
 ## Telas
 
 <div style='width: 100%; height: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 20px'>
