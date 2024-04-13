@@ -16,6 +16,7 @@
     <li>Caso não tenha, instale o Docker de acordo com seu sistema operacional <a href='https://docs.docker.com/engine/install/ubuntu/' target='_blank'>clicando aqui</a> e seguindo os passos.</li>
     <li>Depois instale o Docker Compose <a href='https://docs.docker.com/engine/install/ubuntu/' target='_blank'>clicando aqui</a> e seguindo os passos.</li>
     <li>Em seguida, na pasta raíz do projeto, rode o comando <code>docker compose up --build -d</code>. Este comando iniciará o Docker Compose e fará o build das etapas necessárias para que a aplicação rode localmente.</li>
+    <li>Depois, vá ao navegagor e entre na rota <code>localhost:3000</code> para acessar a aplicação.</li>
   </ul>
 </details>
 
